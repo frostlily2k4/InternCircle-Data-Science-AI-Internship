@@ -1,144 +1,67 @@
-\# Titanic Dataset – Exploratory Data Analysis (EDA)
+# Titanic Dataset – Exploratory Data Analysis (EDA)
 
+## Project Overview
+This project focuses on analyzing the Titanic passenger dataset using Python. The goal is to understand passenger survival patterns based on gender, passenger class, and age group.
 
+## Technologies Used
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Google Colab
 
-\## Project Overview
+## Dataset Information
+- Dataset: Titanic
+- Original records: 891
+- Original columns: 15
+- Records after cleaning: 891
+- Columns after cleaning: 13
 
-This project performs Exploratory Data Analysis (EDA) on the Titanic passenger dataset using Python and Pandas.
+## Research Questions
+1. Did female passengers survive more than male passengers?
+2. Did passenger class affect survival rates?
+3. Was age related to survival?
 
+## Data Cleaning
+- Filled missing age values using the median based on passenger class and sex.
+- Filled missing embarked values using the mode.
+- Removed the deck column because it had many missing values.
+- Removed the redundant embark_town column.
+- Identified 118 identical rows and retained them because they could represent different passengers.
 
+## Key Findings
 
-The objective is to identify patterns in passenger survival based on gender, passenger class, and age group.
+| Analysis | Survival Rate |
+|---|---:|
+| Female passengers | 74.20% |
+| Male passengers | 18.89% |
+| First-class passengers | 62.96% |
+| Second-class passengers | 47.28% |
+| Third-class passengers | 24.24% |
+| Children | 57.97% |
+| Senior passengers | 22.73% |
 
+## Conclusion
+The analysis showed that female passengers, first-class passengers, and children had comparatively higher survival rates. This project helped me understand data cleaning, statistical analysis, grouping, aggregation, and data visualization using Python.
 
-
-\## Technologies Used
-
-\- Python
-
-\- Pandas
-
-\- NumPy
-
-\- Matplotlib
-
-\- Seaborn
-
-\- Google Colab
-
-
-
-\## Dataset Information
-
-\- Dataset: Titanic
-
-\- Original records: 891
-
-\- Original columns: 15
-
-\- Records after cleaning: 891
-
-\- Columns after cleaning: 13
-
-
-
-\## Project Objectives
-
-1\. Analyze survival rates by gender.
-
-2\. Analyze survival rates by passenger class.
-
-3\. Analyze survival rates by age group.
-
-4\. Handle missing values and inspect duplicate records.
-
-5\. Visualize important statistical findings.
-
-
-
-\## Data Cleaning
-
-\- Filled missing age values using median age grouped by passenger class and sex.
-
-\- Filled missing embarked values using the mode.
-
-\- Removed the deck column due to excessive missing values.
-
-\- Removed the redundant embark\_town column.
-
-\- Identified 118 identical rows and retained them because unique passenger identities could not be confirmed.
-
-
-
-\## Key Findings
-
-
-
-| Analysis | Result |
-
-|---|---|
-
-| Female survival rate | 74.20% |
-
-| Male survival rate | 18.89% |
-
-| First-class survival rate | 62.96% |
-
-| Second-class survival rate | 47.28% |
-
-| Third-class survival rate | 24.24% |
-
-| Child survival rate | 57.97% |
-
-| Senior survival rate | 22.73% |
-
-
-
-\## Project Structure
-
-
+## Project Structure
 
 ```text
-
-Titanic-EDA-Project-01/
-
-├── Titanic\_EDA\_Project\_01.ipynb
-
+Project-01-Titanic-EDA/
+├── Titanic_EDA_Project_01.ipynb
 ├── README.md
-
 └── screenshots/
-
-&#x20;   ├── dataset\_preview.png
-
-&#x20;   ├── gender\_survival.png
-
-&#x20;   ├── class\_survival.png
-
-&#x20;   └── age\_survival.png
-
+    ├── dataset_preview.png
+    ├── gender_survival.png
+    ├── class_survival.png
+    └── age_survival.png
 ```
 
-
-
-\## Conclusion
-
-The analysis identified differences in survival rates across gender, passenger class, and age groups. Female passengers, first-class passengers, and children had comparatively higher survival rates in this dataset.
-
-
-
-This project demonstrates practical skills in data cleaning, statistical analysis, grouping, aggregation, and data visualization using Python.
-
-
-
-\## Author
-
+## Author
 Jothi A
 
+## Internship
+InternCircle – Data Science & AI Internship
 
-
-\## Project Type
-
-Data Science \& AI Internship – Project 01
-
-
-
+Project 01: Exploratory Data Analysis (EDA) on Titanic
