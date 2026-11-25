@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
+from pathlib import Path
 
 # Page configuration
 st.set_page_config(
@@ -13,30 +14,40 @@ st.set_page_config(
 # Load the trained model
 @st.cache_resource
 def load_model():
-    return joblib.load("model.joblib")
+    model_path = Path(__file__).parent / "model.joblib"
+    return joblib.load(model_path)
+
 
 try:
     model = load_model()
+
 except FileNotFoundError:
-    st.error("Model file not found. Please keep model.joblib in the same folder as app.py.")
+    st.error(
+        "Model file not found. Please make sure "
+        "model.joblib is in the same folder as app.py."
+    )
     st.stop()
+
 except Exception as e:
     st.error(f"Unable to load the model: {e}")
     st.stop()
 
+
 # App title
 st.title("🚢 Titanic Survival Predictor")
+
 st.write(
     "Enter passenger details below to predict whether "
     "the passenger would have survived the Titanic disaster."
 )
 
 st.caption(
-    "This application uses a Decision Tree model trained on the Titanic dataset. "
-    "Its test accuracy was approximately 77.65%."
+    "This application uses a Decision Tree model trained "
+    "on the Titanic dataset. Its test accuracy was approximately 77.65%."
 )
 
 st.divider()
+
 
 # User inputs
 st.subheader("Passenger Details")
@@ -72,30 +83,52 @@ fare = st.number_input(
     step=1.0
 )
 
+
 # Prediction
-if st.button("Predict Survival", type="primary", use_container_width=True):
+if st.button(
+    "Predict Survival",
+    type="primary",
+    use_container_width=True
+):
 
     try:
         sex_value = 0 if sex == "Male" else 1
 
+        # Create input DataFrame
         input_data = pd.DataFrame(
             [[pclass, sex_value, age, fare]],
             columns=["pclass", "sex", "age", "fare"]
         )
 
+        # Make prediction
         prediction = model.predict(input_data)[0]
+
         probabilities = model.predict_proba(input_data)[0]
 
         classes = list(model.classes_)
-        survival_probability = probabilities[classes.index(1)]
 
+        survival_probability = probabilities[
+            classes.index(1)
+        ]
+
+        death_probability = probabilities[
+            classes.index(0)
+        ]
+
+        # Display results
         st.divider()
         st.subheader("Prediction Result")
 
         if prediction == 1:
-            st.success("🎉 The model predicts that the passenger would have survived!")
+            st.success(
+                "🎉 The model predicts that the passenger "
+                "would have survived!"
+            )
         else:
-            st.error("The model predicts that the passenger would not have survived.")
+            st.error(
+                "The model predicts that the passenger "
+                "would not have survived."
+            )
 
         st.metric(
             "Estimated Survival Probability",
@@ -104,9 +137,14 @@ if st.button("Predict Survival", type="primary", use_container_width=True):
 
         st.progress(float(survival_probability))
 
+        st.metric(
+            "Estimated Non-Survival Probability",
+            f"{death_probability * 100:.2f}%"
+        )
+
         st.caption(
-            "This is a machine learning prediction, not a guarantee "
-            "of what would have happened."
+            "This is a machine learning prediction, "
+            "not a guarantee of what would have happened."
         )
 
     except Exception as e:
