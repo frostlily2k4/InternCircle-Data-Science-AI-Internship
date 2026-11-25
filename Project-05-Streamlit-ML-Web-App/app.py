@@ -3,6 +3,63 @@ import streamlit as st
 import pandas as pd
 import joblib
 from pathlib import Path
+import base64
+
+# Load and display background video
+def set_video_background(video_path):
+    with open(video_path, "rb") as video_file:
+        video_bytes = video_file.read()
+
+    video_base64 = base64.b64encode(video_bytes).decode()
+
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background: transparent;
+        }}
+
+        .stApp::before {{
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                linear-gradient(
+                    rgba(0, 8, 20, 0.65),
+                    rgba(0, 8, 20, 0.75)
+                ),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E");
+        }}
+
+        #background-video {{
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }}
+
+        .stApp {{
+            background: transparent;
+        }}
+        </style>
+
+        <video autoplay muted loop playsinline id="background-video">
+            <source src="data:video/mp4;base64,{video_base64}"
+                    type="video/mp4">
+        </video>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+video_path = Path(__file__).parent / "static" / "titanic_background.mp4"
+
+if video_path.exists():
+    set_video_background(video_path)
 
 # Page configuration
 st.set_page_config(
